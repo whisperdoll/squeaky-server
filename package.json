@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "whisperdoll",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "directory-tree": "^3.2.2",
+    "express": "^4.18.1",
+    "ws": "^8.6.0"
+  },
+  "type": "module"
+}
