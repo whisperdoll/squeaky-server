@@ -25,6 +25,38 @@ export function validateJson(value) {
   };
 }
 
+export function validateJsonShape(shape) {
+  return (value) => {
+    let v = validateJson(value);
+    if (!v.success) return v;
+    v = v.value;
+    
+    for (const key in shape) {
+      if (!shape.hasOwnProperty(key)) continue;
+      if (!value.hasOwnProperty(key)) {
+        return { value: v, success: false };
+      }
+  
+      const validator = shape[key];
+      
+      const sub = typeof(validator) === 'object' ?
+        validateJsonShape(value[key], shape[key]) :
+        validateParam(value[key], shape[key]);
+  
+      if (!sub.success) {
+        return { value: v, success: false };
+      }
+      
+      v[key] = sub.value;
+    }
+  
+    return {
+      success: true,
+      value: v
+    };
+  };
+}
+
 export const validateInt = (minInclusive, maxInclusive) =>
 {
   return (value) =>

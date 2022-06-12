@@ -7,8 +7,17 @@ export function validatePath(dirtree) {
       }
     }
 
+    value = value.replace(/\\/g, '/');
+
     if (value.startsWith('/')) {
       value = value.substr(1);
+    }
+
+    if (value === '') {
+      return {
+        success: true,
+        value
+      };
     }
 
     const parts = value.split('/');
